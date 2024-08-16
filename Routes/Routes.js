@@ -25,6 +25,10 @@ const {
   userregisterController,
 } = require("../controllers/userLoginController");
 
+router.get("/", (req, res) => {
+  res.send("Welcome to namakkal police department API");
+});
+
 // login
 router.post("/login", userloginController);
 router.post("/register", userregisterController);
