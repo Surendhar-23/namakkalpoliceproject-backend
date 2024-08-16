@@ -24,6 +24,11 @@ const {
   userloginController,
   userregisterController,
 } = require("../controllers/userloginController");
+const {
+  addPinsController,
+  getPinsController,
+  deletePinsController,
+} = require("../controllers/pinController");
 
 router.get("/", (req, res) => {
   res.send("Welcome to namakkal police department API");
@@ -54,5 +59,11 @@ router.post("/addvipforecast", addVipForcastController);
 
 router.get("/normalforecast", getNormalforecastController);
 router.get("/vipforecast", getVipforecastController);
+
+// Pins
+
+router.post("/pins", addPinsController);
+router.get("/pins", getPinsController);
+router.delete("/pins/:id", deletePinsController);
 
 module.exports = router;
