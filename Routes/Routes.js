@@ -23,7 +23,7 @@ const {
 const {
   userloginController,
   userregisterController,
-} = require("../controllers/userLoginController");
+} = require("../controllers/userloginController");
 
 router.get("/", (req, res) => {
   res.send("Welcome to namakkal police department API");
