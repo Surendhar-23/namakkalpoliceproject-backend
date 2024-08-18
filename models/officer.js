@@ -6,7 +6,7 @@ async function addOfficer(officerData) {
     const newOfficerData = await newOfficer.save();
     return newOfficerData;
   } catch (error) {
-    console.error("Error adding duties:", error);
+    console.error("Error adding officer:", error);
     throw error;
   }
 }
@@ -16,9 +16,24 @@ async function getOfficers() {
     const results = await Officer.find().exec();
     return results;
   } catch (err) {
-    console.error("Error fetching normal forecasts:", err);
+    console.error("Error fetching officers:", err);
     throw err;
   }
 }
 
-module.exports = { addOfficer, getOfficers };
+async function addDutytoOfficer(dutyData) {
+  try {
+    const officer = await Officer.findOne({ id: dutyData.id });
+    if (officer) {
+      officer.duties.push(dutyData._id);
+      await officer.save();
+    } else {
+      throw new Error(`Officer with ID ${officerId} not found`);
+    }
+  } catch (error) {
+    console.error("Error adding duty to officer:", error);
+    throw error;
+  }
+}
+
+module.exports = { addOfficer, getOfficers, addDutytoOfficer };

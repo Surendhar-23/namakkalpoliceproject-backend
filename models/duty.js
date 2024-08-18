@@ -1,3 +1,4 @@
+const { addDutytoOfficer } = require("./officer");
 const Duty = require("./schema/dutySchema");
 
 async function addDuty(dutyArray) {
@@ -5,6 +6,7 @@ async function addDuty(dutyArray) {
     const savedDuties = [];
     for (const dutyData of dutyArray) {
       const newDuty = new Duty({
+        id: dutyData.id,
         name: dutyData.name,
         mode: dutyData.mode,
         duty: dutyData.duty,
@@ -12,6 +14,7 @@ async function addDuty(dutyArray) {
       });
       const savedDuty = await newDuty.save();
       savedDuties.push(savedDuty);
+      await addDutytoOfficer(savedDuty);
     }
     return savedDuties;
   } catch (error) {
