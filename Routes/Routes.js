@@ -10,6 +10,9 @@ const {
 const {
   addOfficerController,
   getOfficerController,
+  editOfficerController,
+  deleteOfficerController,
+  getOfficerDutyController,
 } = require("../controllers/officerController");
 const {
   addNomralForcastController,
@@ -47,6 +50,10 @@ router.get("/duty", getDutyController);
 
 router.post("/addofficer", addOfficerController);
 router.get("/officer", getOfficerController);
+router.put("/officer/:id", editOfficerController);
+router.delete("/officer/:id", deleteOfficerController);
+
+router.get("/officer/duty/:id", getOfficerDutyController);
 
 // station routes
 

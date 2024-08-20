@@ -27,7 +27,7 @@ async function getPinsController(req, res) {
 
 async function deletePinsController(req, res) {
   try {
-    const pin = await deletePinsController(req.params.id);
+    const pin = await deletePin(req.params.id);
     if (!pin) {
       return res.status(404).json({ message: "Pin not found" });
     }

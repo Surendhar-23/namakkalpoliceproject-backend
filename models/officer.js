@@ -36,4 +36,59 @@ async function addDutytoOfficer(dutyData) {
   }
 }
 
-module.exports = { addOfficer, getOfficers, addDutytoOfficer };
+async function editOfficer(officerId, updatedData) {
+  try {
+    const updatedOfficer = await Officer.findOneAndUpdate(
+      { id: officerId },
+      updatedData,
+      { new: true } // Return the updated officer
+    );
+    if (!updatedOfficer) {
+      throw new Error(`Officer with ID ${officerId} not found`);
+    }
+    return updatedOfficer;
+  } catch (error) {
+    console.error("Error editing officer:", error);
+    throw error;
+  }
+}
+
+async function deleteOfficer(officerId) {
+  try {
+    const deletedOfficer = await Officer.findOneAndDelete({ id: officerId });
+    if (!deletedOfficer) {
+      throw new Error(`Officer with ID ${officerId} not found`);
+    }
+    return deletedOfficer;
+  } catch (error) {
+    console.error("Error deleting officer:", error);
+    throw error;
+  }
+}
+
+async function getOfficerDuty(officerId) {
+  try {
+    const officerDuty = await Officer.findOne({ id: officerId }).populate({
+      path: "duties",
+      options: { sort: { date: -1 } }, // Sort by date in descending order
+    });
+    console.log(officerDuty);
+
+    if (!officerDuty) {
+      throw new Error(`Officer with ID ${officerId} not found`);
+    }
+    return officerDuty;
+  } catch (error) {
+    console.error("Error fetching officer duty:", error);
+    throw error;
+  }
+}
+
+module.exports = {
+  addOfficer,
+  getOfficers,
+  addDutytoOfficer,
+  editOfficer,
+  deleteOfficer,
+  getOfficerDuty,
+};

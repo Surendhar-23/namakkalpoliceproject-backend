@@ -7,11 +7,8 @@ async function addUser(userData) {
 }
 
 async function getUser(username) {
-  console.log(username);
-
   const user = await User.findOne(username);
   console.log(user);
-
   return user;
 }
 
